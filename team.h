@@ -3,8 +3,8 @@
 #include "character.h"
 
 typedef struct team{
-    character members [4];
-    char teamName; 
-}team;
+    Character members [4];
+    char * teamName;    
+}Team;
 
 #endif
