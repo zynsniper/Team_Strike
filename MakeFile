@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -I.
 DEPS = map.h team.h tile.h character.h
 
-TARGET = game
+TARGET = runGame
 
 SRCS = main.c map.c team.c tile.c  
 OBJS = $(SRCS:.c=.o)    
