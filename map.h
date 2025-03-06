@@ -3,9 +3,9 @@
 #include "tile.h"
 
 typedef struct Map{
-    tile tile;
-    int rows;
-    int cols;
+    int MAX_ROWS;
+    int MAX_COLS;
+    Tile * gameWorld[][];
 }Map;
 
 #endif
