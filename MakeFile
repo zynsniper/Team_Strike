@@ -1,0 +1,21 @@
+CC = gcc
+CFLAGS = -I.
+DEPS = map.h team.h tile.h character.h
+
+TARGET = game
+
+SRCS = main.c map.c team.c tile.c  
+OBJS = $(SRCS:.c=.o)    
+
+all: $(TARGET)
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET)
+
+clean:
+	rm -f $(OBJS) $(TARGET)
+
+test:
+	./$(TARGET)           
+
+%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
