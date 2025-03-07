@@ -1,8 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef CHARACTER_H
+#define CHARACTER_H
 
-typedef struct character{
+typedef struct Character{
     int health;
     int attack;
     int pos [2];
 }Character;
+
+#endif 
