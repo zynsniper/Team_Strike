@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "tile.h"
-#include "team.h"
+#include "SaveFunction.h"
 
 int MAX_ROWS = 10, MAX_COLS = 10; //Map currently hardcoded to 10x10
 
@@ -25,6 +25,6 @@ void loadGame(Tile gameWorld[MAX_ROWS][MAX_COLS], Character* team1, Character* t
         fread(&team2[i], sizeof(Character), 1, file);
     }
 
-    fclose(file); 
+    fclose(file);
 }
 

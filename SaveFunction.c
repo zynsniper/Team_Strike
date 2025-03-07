@@ -1,17 +1,15 @@
-#include <stdio.h>
 #include "tile.h"
 #include "team.h"
+#include <stdio.h>
 
-int MAX_ROWS = 10, MAX_COLS = 10; //Map currently hardcoded to 10x10
-
-void saveGame(Tile gameWorld[MAX_ROWS][MAX_COLS], Character* team1, Character* team2, FILE* file) {
+void saveGame(Tile gameWorld[10][10], Character* team1, Character* team2, FILE* file) {
     if (file == NULL) {
         printf("Error locating file.\n");
         return;
     }
 
-    for (int i = 0; i < MAX_ROWS; i++) {
-        for (int j = 0; j < MAX_COLS; j++) {
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
             fwrite(&gameWorld[i][j], sizeof(Tile), 1, file);
         }
     }
@@ -25,4 +23,5 @@ void saveGame(Tile gameWorld[MAX_ROWS][MAX_COLS], Character* team1, Character* t
     }
 
     fclose(file);
+    printf("Game has been saved.\n");
 }
