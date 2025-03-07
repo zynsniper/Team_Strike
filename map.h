@@ -9,3 +9,5 @@ typedef struct Map{
 }Map;
 
 #endif
+
+//Obsolete header. DO NOT USE
