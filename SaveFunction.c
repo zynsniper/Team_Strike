@@ -10,7 +10,7 @@ void saveGame(Tile gameWorld[10][10], Character* team1, Character* team2, FILE* 
 
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
-            fwrite(&gameWorld[i][j], sizeof(Tile), 1, file);
+            fwrite(& gameWorld[i][j], sizeof(Tile), 1, file);
         }
     }
 

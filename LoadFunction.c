@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "tile.h"
-#include "SaveFunction.h"
+#include "team.h"
 
 int MAX_ROWS = 10, MAX_COLS = 10; //Map currently hardcoded to 10x10
 
