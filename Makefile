@@ -1,11 +1,11 @@
 CC = gcc
-CFLAGS = -Wall -I.
-DEPS = team.h tile.h character.h SaveFunction.h
+CFLAGS = -Wall -I ./header
+DEPS = header/team.h header/tile.h header/character.h header/SaveFunction.h header/LoadFunction.h header/MoveFunction.h
 
 TARGET = runGame
 
-SRCS = runGame.c 
-OBJS = $(SRCS:.c=.o)    
+SRCS = src/runGame.c 
+OBJS = $(SRCS:src/%.c=src/%.o)    
 
 all: $(TARGET)
 $(TARGET): $(OBJS)
