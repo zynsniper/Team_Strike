@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -I ./header
-DEPS = header/team.h header/tile.h header/character.h header/SaveFunction.h header/LoadFunction.h header/MoveFunction.h
+DEPS = header/team.h header/tile.h header/character.h header/SaveFunction.h header/LoadFunction.h header/MoveFunction.h header/MapFunction.h
 
 TARGET = runGame
 
