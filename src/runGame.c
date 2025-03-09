@@ -6,7 +6,7 @@
 #include "SaveFunction.h"
 #include "LoadFunction.h"
 #include "MoveFunction.h"
-#include "printMap.h"
+#include "MapFunction.h"
 
 int main(int argc, char ** argv){
     printf("Welcome to Team Strike!\nEnemy Stats:\n");
@@ -28,7 +28,7 @@ int main(int argc, char ** argv){
         teamAI.members[num_char].pos[0] = (num_char *2) ;
         teamAI.members[num_char].pos[1] = (num_char %2) + 1;
 
-        //(Dont show enemy position for now) teamAI.members[num_char].health
+        //Dont print enemy coordinate
         printf("HP: %d AD: %d\n", teamAI.members[num_char].health, teamAI.members[num_char].attack);
         
         num_char++;
@@ -37,24 +37,7 @@ int main(int argc, char ** argv){
     int MAX_COLS = 10; //map is always 10x10
     int MAX_ROWS = 10;
     Tile gameMap [MAX_ROWS][MAX_COLS];
-
-    for(int i =0; i< MAX_ROWS; i++){
-        if((num_char - i)>=0){
-            for(int b =0; b< MAX_ROWS; b++){
-                int randomVal = rand() % 2;
-
-                if(randomVal == 0)
-                    gameMap[i][b].type = '.';
-                else
-                    gameMap[i][b].type = 'O';
-            }
-
-            //Placing Palace
-            int centerRow = MAX_ROWS/2;
-            int centerCol = MAX_COLS/2;
-            gameMap[centerRow][centerCol].type = 'P';
-        }
-    }
+    generateMap(gameMap);
 
     //Print out Enemy Team represented by X
     int posX, posY;
@@ -105,42 +88,41 @@ int main(int argc, char ** argv){
     int character;                                                
     char userInput[2];                                             
     while(1){
-        printf("(p)lay, (s)ave, (l)oad or (q)uit?\n: ");
-        fgets(userInput, sizeof(userInput), stdin);
+        printf("(p)lay, (s)ave, (l)oad or (q)uit?: \n");
+        scanf(" %c", &userInput[0]);
 
         switch(userInput[0]){
             case 's':
                 FILE * file = fopen("game_save", "w");
-                saveGame(gameMap, team1.members, team1.members, file);
+                saveGame(gameMap, teamAI.members, team1.members, file); 
                 break;
 
             case 'p':
                 printf("Enter a Character# in Team %s to manipulate: \n", team1.teamName);
                 scanf("%d", &character);
-                int characterNum = character;
-                if(characterNum >= 1 || characterNum <= 4){
+                if(character >= 1 && character <= 4){
                     printf("Now enter a command {w, a, s, d to move}: ");
-                    scanf("%s", userInput);
+                    scanf(" %c", &userInput[0]);
 
                     //move logic
                     switch(userInput[0]){
                         case 'w':
-                            moveUp(&team1, gameMap, characterNum);
+                            moveUp(&team1, gameMap, character);
                             printMap(gameMap);
                             break;
 
                         case 'a':
-                            moveLeft(&team1, gameMap, characterNum);
+                            moveLeft(&team1, gameMap, character);
                             printMap(gameMap);
                             break;
 
                         case 's':
-                            moveDown(&team1, gameMap, characterNum);
+                            moveDown(&team1, gameMap, character);
                             printMap(gameMap);
                             break;
 
                         case 'd':
-                            moveRight(&team1, gameMap, characterNum);
+                            moveRight(&team1, gameMap, character);
                             printMap(gameMap);
                             break;
 
@@ -149,6 +131,15 @@ int main(int argc, char ** argv){
                             break;
                     }
                 }
+                break;
+
+            case 'q':
+                printf("Exiting game.");
+                return 0;
+
+            default:
+                printf("Invalid command\n");
+                break;
         }   
     }
 }
