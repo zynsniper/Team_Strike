@@ -2,5 +2,6 @@
     "C_Cpp.errorSquiggles": "enabled",
     "files.associations": {
         "tile.h": "c"
-    }
+    },
+    "C_Cpp.default.compilerPath": "/usr/bin/gcc"
 }
