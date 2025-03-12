@@ -2,7 +2,7 @@
 #include "team.h"
 #include <stdio.h>
 
-void moveUp(Team* team, Tile gameMap [10][10], int character){
+void moveRight(Team* team, Tile gameMap [10][10], int character){
     int posX = team->members[character - 1].pos[0];
     int posY = team->members[character - 1].pos[1];
 
@@ -16,7 +16,7 @@ void moveUp(Team* team, Tile gameMap [10][10], int character){
     }
 }
 
-void moveDown(Team* team, Tile gameMap [10][10], int character){
+void moveLeft(Team* team, Tile gameMap [10][10], int character){
     int posX = team->members[character - 1].pos[0];
     int posY = team->members[character - 1].pos[1];
 
@@ -30,7 +30,7 @@ void moveDown(Team* team, Tile gameMap [10][10], int character){
     }
 }
 
-void moveLeft(Team* team, Tile gameMap [10][10], int character){
+void moveUp(Team* team, Tile gameMap [10][10], int character){
     int posX = team->members[character - 1].pos[0];
     int posY = team->members[character - 1].pos[1];
 
@@ -44,7 +44,7 @@ void moveLeft(Team* team, Tile gameMap [10][10], int character){
     }
 }
 
-void moveRight(Team* team, Tile gameMap [10][10], int character){
+void moveDown(Team* team, Tile gameMap [10][10], int character){
     int posX = team->members[character - 1].pos[0];
     int posY = team->members[character - 1].pos[1];
 
