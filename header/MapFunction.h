@@ -6,7 +6,7 @@
 void printMap(Tile gameMap[10][10]) {
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
-            printf("%c ", gameMap[j][i].type);
+            printf("%c ", gameMap[i][j].type);
         }
         printf("\n");
     }
@@ -14,17 +14,23 @@ void printMap(Tile gameMap[10][10]) {
 
 void generateMap(Tile gameMap[10][10]){
     for(int i = 0; i < 10; i++){
-        for(int b = 0; b < 10; b++){
-            int randomVal = rand() % 2;
-            gameMap[i][b].type = '.';
-            
-            if(randomVal == 0)
-                gameMap[i][b].type = '.';
-            else
-                gameMap[i][b].type = 'O';        
+        for(int j = 0; j < 10; j++){
+            gameMap[i][j].type = '.'; 
         }
-
-        //Placing Palace in center
-        gameMap[5][5].type = 'P';
     }
+
+    int obstacleCount = 20;
+    for(int i = 0; i < obstacleCount; i++){
+        int X = rand() % 10;
+        int Y = rand() % 10;
+
+        if(X == 5 && Y == 5){
+            continue;
+        }
+        else{
+            gameMap[X][Y].type = 'O';
+        }
+    }
+    //Placing Palace in center
+    gameMap[5][5].type = 'P';
 }
