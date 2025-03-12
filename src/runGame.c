@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 #include "team.h"
 #include "tile.h"
 #include "SaveFunction.h"
@@ -8,10 +9,12 @@
 #include "MoveFunction.h"
 #include "MapFunction.h"
 
+
 int main(int argc, char ** argv){
     printf("Welcome to Team Strike!\nEnemy Stats:\n");
 
-    //Generate Enemy Team*******************************
+    //Generate Enemy Team(AI)
+    //================================================================================================================//
     Team teamAI;
     teamAI.teamName = "AI";
     int num_char = 0;
@@ -84,62 +87,81 @@ int main(int argc, char ** argv){
     printMap(gameMap);
 
     //User Inputs
-    //================================================================================================================//
-    int character;                                                
-    char userInput[2];                                             
+    //================================================================================================================//                                             
+    char userInput[2];
+    bool inMovementMode = false;
+
     while(1){
-        printf("(p)lay, (s)ave, (l)oad or (q)uit?: \n");
-        scanf(" %c", &userInput[0]);
-
-        switch(userInput[0]){
-            case 's':
-                FILE * file = fopen("game_save", "w");
-                saveGame(gameMap, teamAI.members, team1.members, file); 
-                break;
-
-            case 'p':
-                printf("Enter a Character# in Team %s to manipulate: \n", team1.teamName);
-                scanf("%d", &character);
-                if(character >= 1 && character <= 4){
-                    printf("Now enter a command {w, a, s, d to move}: ");
-                    scanf(" %c", &userInput[0]);
-
-                    //move logic
-                    switch(userInput[0]){
-                        case 'w':
-                            moveUp(&team1, gameMap, character);
-                            printMap(gameMap);
-                            break;
-
-                        case 'a':
-                            moveLeft(&team1, gameMap, character);
-                            printMap(gameMap);
-                            break;
-
-                        case 's':
-                            moveDown(&team1, gameMap, character);
-                            printMap(gameMap);
-                            break;
-
-                        case 'd':
-                            moveRight(&team1, gameMap, character);
-                            printMap(gameMap);
-                            break;
-
-                        default:
-                            printf("Invalid command\n");
-                            break;
-                    }
-                }
-                break;
-
-            case 'q':
-                printf("Exiting game.");
+        if(!inMovementMode){
+            printf("(p)lay, (s)ave, (l)oad or (q)uit?: \n");
+            scanf(" %c", &userInput[0]);
+        
+            if(userInput[0] == 'p'){
+                inMovementMode = true;
+            }
+            else if(userInput[0] == 'q'){
+                printf("Exiting game.\n");
                 return 0;
+            }
+            else if(userInput[0] == 's'){
+                char saveName[100];
+                printf("Enter save name: ");
+                scanf("%99s", saveName);
+                FILE * file = fopen(saveName, "w");
+                saveGame(gameMap, teamAI.members, team1.members, file); 
+            }
+        }
+        else{
+            printf("Select which character to move (or q to return): ");
+            scanf(" %c", &userInput[0]);
+            getchar();
 
-            default:
-                printf("Invalid command\n");
-                break;
+            if(userInput[0] == 'q'){
+                inMovementMode = false;
+                continue;
+            }
+
+            if(userInput[0] >= '1' && userInput[0] <= '4'){
+                int character = userInput[0] - '0';
+
+                printf("Now enter a command {w, a, s, d to move}: ");
+                scanf(" %c", &userInput[0]);
+
+                if(userInput[0] == 'q'){
+                    inMovementMode = false;
+                    continue;
+                }
+
+                //move logic
+                switch(userInput[0]){
+                    case 'w':
+                        moveUp(&team1, gameMap, character);
+                        printMap(gameMap);
+                        break;
+
+                    case 'a':
+                        moveLeft(&team1, gameMap, character);
+                        printMap(gameMap);
+                        break;
+
+                    case 's':
+                        moveDown(&team1, gameMap, character);
+                        printMap(gameMap);
+                        break;
+
+                    case 'd':
+                        moveRight(&team1, gameMap, character);
+                        printMap(gameMap);
+                        break;
+
+                    default:
+                        printf("Invalid movement command\n");
+                        break;
+                }
+            }
+            else{
+                printf("Invalid character selected.\n");
+            }
         }   
     }
 }
