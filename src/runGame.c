@@ -15,24 +15,24 @@ int main(int argc, char ** argv){
 
     //Generate Enemy Team(AI)
     //================================================================================================================//
-    Team teamAI;
-    teamAI.teamName = "AI";
+    Team * teamAI = malloc(sizeof(Team));
+    teamAI->teamName = "AI";
     int num_char = 0;
     while(num_char < 4 ){
         printf("Character #%d\n", num_char+ 1);
         if(num_char%2 == 0 ){
-            teamAI.members[num_char].health = 28;
-            teamAI.members[num_char].attack = 2;
+            teamAI->members[num_char].health = 28;
+            teamAI->members[num_char].attack = 2;
         }
         else{
-            teamAI.members[num_char].health = 15;
-            teamAI.members[num_char].attack = 5;
+            teamAI->members[num_char].health = 15;
+            teamAI->members[num_char].attack = 5;
         }
-        teamAI.members[num_char].pos[0] = (num_char *2) ;
-        teamAI.members[num_char].pos[1] = (num_char %2) + 1;
+        teamAI->members[num_char].pos[0] = (num_char *2) ;
+        teamAI->members[num_char].pos[1] = (num_char %2) + 1;
 
         //Dont print enemy coordinate
-        printf("HP: %d AD: %d\n", teamAI.members[num_char].health, teamAI.members[num_char].attack);
+        printf("HP: %d AD: %d\n", teamAI->members[num_char].health, teamAI->members[num_char].attack);
         
         num_char++;
     }
@@ -45,8 +45,8 @@ int main(int argc, char ** argv){
     //Print out Enemy Team represented by X
     int posX, posY;
     for(int i = 0; i < 4; i++){
-        posX = teamAI.members[i].pos[0]; 
-        posY = teamAI.members[i].pos[1];
+        posX = teamAI->members[i].pos[0]; 
+        posY = teamAI->members[i].pos[1];
         gameMap[posX][posY].type = 'X';
     }
 
@@ -106,9 +106,16 @@ int main(int argc, char ** argv){
             else if(userInput[0] == 's'){
                 char saveName[100];
                 printf("Enter save name: ");
-                scanf("%99s", saveName);
+                scanf("%99s", &saveName[0]);
                 FILE * file = fopen(saveName, "w");
-                saveGame(gameMap, teamAI.members, team1->members, file); 
+                saveGame(gameMap, teamAI->members, team1->members, file); 
+            }
+            else if(userInput[0] == 'l'){
+                char saveName[100];
+                printf("Enter save name: ");
+                scanf("%99s", &saveName[0]);
+                FILE * file = fopen(saveName, "r");
+                loadGame(gameMap, teamAI->members, team1->members, file);
             }
         }
         else{
