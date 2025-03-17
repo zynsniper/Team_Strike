@@ -2,7 +2,7 @@
 #include "tile.h"
 #include "team.h"
 
-void loadGame(Tile gameWorld[10][10], Character* team1, Character* team2, FILE* file) {
+void loadGame(Tile gameWorld[10][10], Team* playerTeam, Team* teamAI, FILE* file) {
     if (file == NULL) {
         printf("Error locating file.\n");
         return;
@@ -14,14 +14,13 @@ void loadGame(Tile gameWorld[10][10], Character* team1, Character* team2, FILE* 
         }
     }
 
-    for (int i = 0; i < 4; i++) {
-        fread(&team1[i], sizeof(Character), 1, file);
-    }
+    playerTeam->teamName = malloc(50 * sizeof(char));
+    fread(playerTeam->teamName, sizeof(char), 50, file);
 
-    for (int i = 0; i < 4; i++) {
-        fread(&team2[i], sizeof(Character), 1, file);
-    }
+    fread(playerTeam->members, sizeof(Character), 4, file);
+    fread(teamAI->members, sizeof(Character), 4, file);
 
+    printf("Save loaded successfully. Team: %s\n", playerTeam->teamName);
     fclose(file);
 }
 
