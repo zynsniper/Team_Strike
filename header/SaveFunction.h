@@ -2,7 +2,7 @@
 #include "team.h"
 #include <stdio.h>
 
-void saveGame(Tile gameWorld[10][10], Character* playerTeam, Character* teamAI, FILE* file) {
+void saveGame(Tile gameWorld[10][10], Team* playerTeam, Team* teamAI, FILE* file) {
     if (file == NULL) {
         printf("Error locating file.\n");
         return;
@@ -14,13 +14,11 @@ void saveGame(Tile gameWorld[10][10], Character* playerTeam, Character* teamAI, 
         }
     }
 
-    for (int i = 0; i < 4; i++) {
-        fwrite(&playerTeam[i], sizeof(Character), 1, file);
-    }
+    fwrite(playerTeam->teamName, sizeof(char), 50, file);
+    fwrite(teamAI->teamName, sizeof(char), 50, file);
 
-    for (int i = 0; i < 4; i++) {
-        fwrite(&teamAI[i], sizeof(Character), 1, file);
-    }
+    fwrite(playerTeam->teamName, sizeof(Character), 4, file);
+    fwrite(teamAI->teamName, sizeof(Character), 4, file);
 
     fclose(file);
     printf("Game has been saved.\n");
