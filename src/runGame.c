@@ -108,14 +108,15 @@ int main(int argc, char ** argv){
                 printf("Enter save name: ");
                 scanf("%99s", &saveName[0]);
                 FILE * file = fopen(saveName, "w");
-                saveGame(gameMap, teamAI->members, team1->members, file); 
+                saveGame(gameMap, team1, teamAI, file); 
             }
             else if(userInput[0] == 'l'){
                 char saveName[100];
                 printf("Enter save name: ");
                 scanf("%99s", &saveName[0]);
                 FILE * file = fopen(saveName, "r");
-                loadGame(gameMap, teamAI->members, team1->members, file);
+                loadGame(gameMap, team1, teamAI, file);
+                printMap(gameMap);
             }
         }
         else{
