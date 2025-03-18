@@ -1,6 +1,4 @@
-#include "tile.h"
-#include "team.h"
-#include <stdio.h>
+#include "save_function.h"
 
 void saveGame(Tile gameWorld[10][10], Team* playerTeam, Team* teamAI, FILE* file) {
     if (file == NULL) {

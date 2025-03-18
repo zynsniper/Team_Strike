@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <time.h>
-#include "tile.h"
-#include <stdlib.h>
+#include "map_function.h"
 
 // Function definition
 void printMap(Tile gameMap[10][10]) {
@@ -14,7 +11,7 @@ void printMap(Tile gameMap[10][10]) {
 }
 
 void generateMap(Tile gameMap[10][10]){
-    srand(time(NULL));
+    rand(time());
 
     for(int i = 0; i < 10; i++){
         for(int j = 0; j < 10; j++){
