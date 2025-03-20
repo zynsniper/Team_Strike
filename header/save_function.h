@@ -4,6 +4,6 @@
 #include "tile.h"
 #include "team.h"
 
-void save(Tile gameWorld[10][10], Team* playerTeam, Team* teamAI, FILE* file);
+void saveGame(Tile gameWorld[10][10], Team* playerTeam, Team* teamAI, FILE* file);
 
 #endif
