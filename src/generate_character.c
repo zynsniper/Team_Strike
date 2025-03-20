@@ -1,5 +1,7 @@
-#include "generate-character.h"
+#include "generate_character.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-void geerate_ai(){
+void generateCharacter(){
     
 }

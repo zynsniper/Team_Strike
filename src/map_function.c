@@ -1,4 +1,7 @@
 #include "map_function.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 // Function definition
 void printMap(Tile gameMap[10][10]) {
@@ -11,7 +14,7 @@ void printMap(Tile gameMap[10][10]) {
 }
 
 void generateMap(Tile gameMap[10][10]){
-    rand(time());
+    srand(time(NULL));
 
     for(int i = 0; i < 10; i++){
         for(int j = 0; j < 10; j++){
@@ -19,18 +22,18 @@ void generateMap(Tile gameMap[10][10]){
         }
     }
 
+    //Placing Palace in center
+    gameMap[5][5].type = 'P';
+
     int obstacleCount = 20;
-    for(int i = 0; i < obstacleCount; i++){
+    int placedObstacles = 0;
+    while(placedObstacles <= obstacleCount){
         int X = rand() % 10;
         int Y = rand() % 10;
 
-        if(X == 5 && Y == 5){
-            continue;
-        }
-        else{
+        if(gameMap[X][Y].type == '.' && gameMap[X][Y].type != 'P'){
             gameMap[X][Y].type = 'O';
+            placedObstacles++;
         }
     }
-    //Placing Palace in center
-    gameMap[5][5].type = 'P';
 }

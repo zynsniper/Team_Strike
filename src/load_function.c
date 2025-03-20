@@ -1,4 +1,6 @@
 #include "load_function.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 void loadGame(Tile gameWorld[10][10], Team* playerTeam, Team* teamAI, FILE* file) {
     if (file == NULL) {
