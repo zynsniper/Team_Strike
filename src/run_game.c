@@ -4,10 +4,10 @@
 #include <stdbool.h>
 #include "team.h"
 #include "tile.h"
-#include "SaveFunction.h"
-#include "LoadFunction.h"
-#include "MoveFunction.h"
-#include "MapFunction.h"
+#include "save_function.h"
+#include "load_function.h"
+#include "move_function.h"
+#include "map_function.h"
 
 
 int main(int argc, char ** argv){
@@ -143,22 +143,22 @@ int main(int argc, char ** argv){
                 //move logic
                 switch(userInput[0]){
                     case 'w':
-                        moveUp(team1, gameMap, character);
+                        moveUp(team1, teamAI, gameMap, character);
                         printMap(gameMap);
                         break;
 
                     case 'a':
-                        moveLeft(team1, gameMap, character);
+                        moveLeft(team1, teamAI, gameMap, character);
                         printMap(gameMap);
                         break;
 
                     case 's':
-                        moveDown(team1, gameMap, character);
+                        moveDown(team1, teamAI, gameMap, character);
                         printMap(gameMap);
                         break;
 
                     case 'd':
-                        moveRight(team1, gameMap, character);
+                        moveRight(team1, teamAI, gameMap, character);
                         printMap(gameMap);
                         break;
 
