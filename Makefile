@@ -4,7 +4,7 @@ DEPS = header/team.h header/tile.h header/character.h header/SaveFunction.h head
 
 TARGET = runGame
 
-SRCS = src/runGame.c 
+SRCS = src/run_game.c src/generate_character.c src/load_function.c src/save_function.c src/map_function.c src/move_function.c
 OBJS = $(SRCS:src/%.c=src/%.o)    
 
 all: $(TARGET)
