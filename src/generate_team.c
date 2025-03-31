@@ -96,7 +96,6 @@ Team * generate_team(Tile game_map[10][10], bool isAI){
         team->members[i] = malloc(sizeof(Character));
         if(team->members[i] == NULL){
             printf("Failed to allocate memory for team member %d\n", i);
-            // Free previously allocated members
             for(int j = 0; j < i; j++){
                 free(team->members[j]);
             }
@@ -110,20 +109,18 @@ Team * generate_team(Tile game_map[10][10], bool isAI){
         if(isAI){
             team->teamName = "AI";
 
-            // Ensure no two characters get the same tile
-            do {
+            do{
                 posX = rand() % 2;  
                 posY = rand() % 10;
-                
-                // Check if any existing team member has the same position
                 positionTaken = false;
-                for (int j = 0; j < i; j++) {
-                    if (team->members[j]->pos[0] == posX && team->members[j]->pos[1] == posY) {
+
+                for(int j = 0; j < i; j++){
+                    if(team->members[j]->pos[0] == posX && team->members[j]->pos[1] == posY){
                         positionTaken = true;
                         break;
                     }
                 }
-            } while (game_map[posY][posX].type != '.' || positionTaken);
+            }while (game_map[posY][posX].type != '.' || positionTaken);
 
             team->members[i]->pos[0] = posX;
             team->members[i]->pos[1] = posY;
@@ -139,8 +136,8 @@ Team * generate_team(Tile game_map[10][10], bool isAI){
                 game_map[posY][posX].type = 'X';
             }
         }
-        else {
-            do {
+        else{
+            do{
                 posX = 8 + rand() % 2;  
                 posY = rand() % 10;
 
@@ -159,6 +156,12 @@ Team * generate_team(Tile game_map[10][10], bool isAI){
             
             team->members[i]->attack = 8 + rand()%7;
             team->members[i]->health = 8 + rand()%7;
+
+            team->members[i]->berserker = (rand()%3 == 0);
+            if(!team->members[i]->berserker){
+                team->members[i]->bulldozer = true;
+            }
+
             game_map[posY][posX].type = '1' + i;
         }
     }

@@ -12,9 +12,15 @@ void attack(Character * attacker, Character * defender, Tile gameMap[10][10]){
         return;
     }
 
-    defender -> health -= attacker -> attack;
-
-    printf("%d damage dealt!\n", attacker->attack);
+    if(attacker->berserker && attacker->health <= 7){
+        defender->health -= attacker->attack*2;
+        printf("Berserker ability activated!\n");
+        printf("%d damage dealt!\n", attacker->attack*2);
+    }
+    else{
+        defender->health -= attacker->attack;
+        printf("%d damage dealt!\n", attacker->attack);
+    }
 
     if(defender -> health <= 0){
         printf("******************\nCHARACTER DEFEATED!\n****************\n");
@@ -48,6 +54,14 @@ bool moveRight(Team* team, Team* enemyTeam, Tile gameMap [10][10], int character
         }
     }
 
+    if(gameMap[newY][newX].type == 'O' && team->members[characterIndex]->bulldozer){
+        team->members[characterIndex]->pos[0] = newX;  
+        gameMap[posY][posX].type = '.'; 
+        gameMap[newY][newX].type = moverType;
+        printf("Bulldozer ability activated!\n");
+        return true;
+    }
+
     if(gameMap[newY][newX].type == '.'){
         team->members[characterIndex]->pos[0] = newX;  
         gameMap[posY][posX].type = '.'; 
@@ -56,9 +70,8 @@ bool moveRight(Team* team, Team* enemyTeam, Tile gameMap [10][10], int character
     }
     else{
         printf("Can't move due to '%c' blocking\n", gameMap[newY][newX].type); 
+        return false;
     }
-
-    return false;
 }
 
 bool moveLeft(Team* team, Team* enemyTeam, Tile gameMap [10][10], int characterIndex){
@@ -80,6 +93,15 @@ bool moveLeft(Team* team, Team* enemyTeam, Tile gameMap [10][10], int characterI
             return true;
         }
     }
+
+    if(gameMap[newY][newX].type == 'O' && team->members[characterIndex]->bulldozer){
+        team->members[characterIndex]->pos[0] = newX;  
+        gameMap[posY][posX].type = '.'; 
+        gameMap[newY][newX].type = moverType;
+        printf("Bulldozer ability activated!\n");
+        return true;
+    }
+
     if(gameMap[posY][newX].type == '.'){
         team->members[characterIndex]->pos[0] = newX;  
         gameMap[posY][posX].type = '.'; 
@@ -88,9 +110,8 @@ bool moveLeft(Team* team, Team* enemyTeam, Tile gameMap [10][10], int characterI
     }
     else{
         printf("Can't move due to '%c' blocking\n", gameMap[newY][newX].type);    
+        return false;
     }
-
-    return false;  
 }
 
 bool moveUp(Team* team, Team* enemyTeam, Tile gameMap [10][10], int characterIndex){
@@ -112,6 +133,15 @@ bool moveUp(Team* team, Team* enemyTeam, Tile gameMap [10][10], int characterInd
             return true;
         }
     }
+
+    if(gameMap[newY][newX].type == 'O' && team->members[characterIndex]->bulldozer){
+        team->members[characterIndex]->pos[1] = newY;  
+        gameMap[posY][posX].type = '.'; 
+        gameMap[newY][newX].type = moverType;
+        printf("Bulldozer ability activated!\n");
+        return true;
+    }
+
     if(gameMap[newY][newX].type == '.'){
         team->members[characterIndex]->pos[1] = newY;  
         gameMap[posY][posX].type = '.'; 
@@ -120,9 +150,8 @@ bool moveUp(Team* team, Team* enemyTeam, Tile gameMap [10][10], int characterInd
     }
     else{
         printf("Can't move due to '%c' blocking\n", gameMap[newY][newX].type); 
+        return false;
     }
-
-    return false;
 }
 
 bool moveDown(Team* team, Team* enemyTeam, Tile gameMap [10][10], int characterIndex){
@@ -144,6 +173,15 @@ bool moveDown(Team* team, Team* enemyTeam, Tile gameMap [10][10], int characterI
             return true;
         }
     }
+
+    if(gameMap[newY][newX].type == 'O' && team->members[characterIndex]->bulldozer){
+        team->members[characterIndex]->pos[1] = newY;  
+        gameMap[posY][posX].type = '.'; 
+        gameMap[newY][newX].type = moverType;
+        printf("Bulldozer ability activated!\n");
+        return true;
+    }
+
     if(gameMap[newY][newX].type == '.'){
         team->members[characterIndex]->pos[1] = newY;  
         gameMap[posY][posX].type = '.'; 
@@ -151,8 +189,7 @@ bool moveDown(Team* team, Team* enemyTeam, Tile gameMap [10][10], int characterI
         return true;
     }
     else{
-        printf("Can't move due to '%c' blocking\n", gameMap[newY][newX].type); 
+        printf("Can't move due to '%c' blocking\n", gameMap[newY][newX].type);
+        return false;
     }
-
-    return false;
 }
