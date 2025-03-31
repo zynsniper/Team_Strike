@@ -2,9 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "palace.h"
 
 // Function definition
-void printMap(Tile gameMap[10][10]) {
+void printMap(Tile gameMap[10][10], Palace * palace) {
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
             printf("%c ", gameMap[i][j].type);
@@ -13,8 +14,9 @@ void printMap(Tile gameMap[10][10]) {
     }
 }
 
-void generateMap(Tile gameMap[10][10]){
+void generateMap(Tile gameMap[10][10], Palace * palace){
     srand(time(NULL));
+    initPalace(palace);
 
     for(int i = 0; i < 10; i++){
         for(int j = 0; j < 10; j++){
@@ -23,9 +25,9 @@ void generateMap(Tile gameMap[10][10]){
     }
 
     //Placing Palace in center
-    gameMap[5][5].type = 'P';
+    gameMap[palace->pos[0]][palace->pos[1]].type = 'P';
 
-    int obstacleCount = 1;
+    int obstacleCount = 5;
     int placedObstacles = 0;
     while(placedObstacles <= obstacleCount){
         int X = rand() % 10;

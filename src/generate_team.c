@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include <time.h>
 #include "generate_team.h"
 
 Team * generate_ai(Tile game_map[10][10]){
@@ -86,7 +85,6 @@ Team * generate_player(Tile game_map [10][10]){
 }
 
 Team * generate_team(Tile game_map[10][10], bool isAI){
-    srand(time(NULL));
     Team * team = malloc(sizeof(Team));
     if(team == NULL){
         printf("Failed to allocate memory for team\n");
@@ -107,13 +105,28 @@ Team * generate_team(Tile game_map[10][10], bool isAI){
         }
 
         int posX, posY;
+        bool positionTaken;
 
         if(isAI){
             team->teamName = "AI";
-            team->members[i]->pos[0] = rand() % 2; 
-            team->members[i]->pos[1] = rand() % 10;
-            posX = team->members[i]->pos[0];
-            posY = team->members[i]->pos[1];
+
+            // Ensure no two characters get the same tile
+            do {
+                posX = rand() % 2;  
+                posY = rand() % 10;
+                
+                // Check if any existing team member has the same position
+                positionTaken = false;
+                for (int j = 0; j < i; j++) {
+                    if (team->members[j]->pos[0] == posX && team->members[j]->pos[1] == posY) {
+                        positionTaken = true;
+                        break;
+                    }
+                }
+            } while (game_map[posY][posX].type != '.' || positionTaken);
+
+            team->members[i]->pos[0] = posX;
+            team->members[i]->pos[1] = posY;
 
             if(i % 2 == 0){
                 team->members[i]->attack = 3 + rand()%10;
@@ -121,18 +134,31 @@ Team * generate_team(Tile game_map[10][10], bool isAI){
                 game_map[posY][posX].type = 'D';
             }
             else{
-                team->members[i]->attack = 5 + rand()%10;
-                team->members[i]->health = 10 + rand()%10;
+                team->members[i]->attack = 10 + rand()%10;
+                team->members[i]->health = 7 + rand()%10;
                 game_map[posY][posX].type = 'X';
             }
         }
-        else{
-            team->members[i]->pos[0] = 8 + (rand() % 2); 
-            team->members[i]->pos[1] = rand() % 10;
-            posX = team->members[i]->pos[0];
-            posY = team->members[i]->pos[1];
-            team->members[i]->attack = 7 + rand()%7;
-            team->members[i]->health = 7 + rand()%7;
+        else {
+            do {
+                posX = 8 + rand() % 2;  
+                posY = rand() % 10;
+
+                // Check if any existing team member has the same position
+                positionTaken = false;
+                for (int j = 0; j < i; j++) {
+                    if (team->members[j]->pos[0] == posX && team->members[j]->pos[1] == posY) {
+                        positionTaken = true;
+                        break;
+                    }
+                }
+            } while (game_map[posY][posX].type != '.' || positionTaken);
+
+            team->members[i]->pos[0] = posX;
+            team->members[i]->pos[1] = posY;
+            
+            team->members[i]->attack = 8 + rand()%7;
+            team->members[i]->health = 8 + rand()%7;
             game_map[posY][posX].type = '1' + i;
         }
     }

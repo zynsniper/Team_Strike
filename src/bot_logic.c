@@ -20,13 +20,13 @@ bool findAlternativePath(Team* ai, Team* player, Tile gameMap[10][10], int AIind
         
         if(!isTileBlocked(gameMap, newX, newY)){
             if(dx[i] > 0)
-                return moveRight(ai, player, gameMap, AIindex + 1 );
+                return moveRight(ai, player, gameMap, AIindex);
             else if (dx[i] < 0)
-                return moveLeft(ai, player, gameMap, AIindex + 1);
+                return moveLeft(ai, player, gameMap, AIindex);
             else if (dy[i] > 0)
-                return moveDown(ai, player, gameMap, AIindex + 1);
+                return moveDown(ai, player, gameMap, AIindex);
             else
-                return moveUp(ai, player, gameMap, AIindex + 1);
+                return moveUp(ai, player, gameMap, AIindex);
         }
     }
     
@@ -94,17 +94,17 @@ void advance(Team* ai, Team* player, Tile gameMap[10][10]) {
         // Prioritize X movement first
         if (xMove != 0) {
             if (xMove > 0)
-                result = moveRight(ai, player, gameMap, AIindex + 1);
+                result = moveRight(ai, player, gameMap, AIindex);
             else
-                result = moveLeft(ai, player, gameMap, AIindex + 1);
+                result = moveLeft(ai, player, gameMap, AIindex);
         }
 
         // If X movement failed, try Y movement
         if (!result) {
             if (yMove > 0)
-                result = moveDown(ai, player, gameMap, AIindex + 1);
+                result = moveDown(ai, player, gameMap, AIindex);
             else
-                result = moveUp(ai, player, gameMap, AIindex + 1);
+                result = moveUp(ai, player, gameMap, AIindex);
         }
 
         // If both fail, try to find an alternative path
@@ -122,12 +122,12 @@ void advance(Team* ai, Team* player, Tile gameMap[10][10]) {
         
         // Move towards palace
         if (ai->members[palace_finder]->pos[0] < palaceX)
-            result = moveRight(ai, player, gameMap, palace_finder + 1);
+            result = moveRight(ai, player, gameMap, palace_finder);
         else if (ai->members[palace_finder]->pos[0] > palaceX)
-            result = moveLeft(ai, player, gameMap, palace_finder + 1);
+            result = moveLeft(ai, player, gameMap, palace_finder);
         else if (ai->members[palace_finder]->pos[1] < palaceY)
-            result = moveDown(ai, player, gameMap, palace_finder + 1);
+            result = moveDown(ai, player, gameMap, palace_finder);
         else
-            result = moveUp(ai, player, gameMap, palace_finder + 1);
+            result = moveUp(ai, player, gameMap, palace_finder);
     }
 }
