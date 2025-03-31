@@ -37,12 +37,13 @@ void printPlayerStats(Team * player){
     for(int i = 0; i < 4; i++){
         if(player->members[i]->health > 0){
             printf("char#%d HP:%d AD:%d ", i+1, player->members[i]->health, player->members[i]->attack);
-        }
-        if(player->members[i]->berserker){
-            printf("[Berserker]\n");
-        }
-        else{
-            printf("[Bulldozer]\n");
+
+            if(player->members[i]->berserker){
+                printf("[Berserker]\n");
+            }
+            else{
+                printf("[Bulldozer]\n");
+            }
         }
     }
     printf("\n");
@@ -171,7 +172,7 @@ int main(int argc, char ** argv){
                     continue;
                 }
 
-                printf("Now enter a command {w, a, s, d to move}: ");
+                printf("Now enter a command {w, a, s, d to move} or {x to skip}: ");
                 scanf(" %c", &userInput[0]);
 
                 if(userInput[0] == 'q'){
@@ -218,6 +219,16 @@ int main(int argc, char ** argv){
                         moveRight(team1, AI, gameMap, characterIndex);
                         printMap(gameMap, &palace);
                         printAIstats(AI);
+                        printf("\nAI's turn...\n");
+                        advance(AI, team1, gameMap);
+                        printMap(gameMap, &palace);
+                        printf("Palace HP: %d\n", palace.health);
+                        printPlayerStats(team1);
+                        break;
+
+                    case 'x':
+                        printf("Skipping player turn\n");
+                        printf("***************************************************************\n");
                         printf("\nAI's turn...\n");
                         advance(AI, team1, gameMap);
                         printMap(gameMap, &palace);
