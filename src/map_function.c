@@ -25,7 +25,7 @@ void generateMap(Tile gameMap[10][10]){
     //Placing Palace in center
     gameMap[5][5].type = 'P';
 
-    int obstacleCount = 20;
+    int obstacleCount = 1;
     int placedObstacles = 0;
     while(placedObstacles <= obstacleCount){
         int X = rand() % 10;
