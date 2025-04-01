@@ -1,0 +1,9 @@
+{
+    "C_Cpp.errorSquiggles": "enabled",
+    "files.associations": {
+        "tile.h": "c",
+        "stdlib.h": "c",
+        "stdio.h": "c"
+    },
+    "C_Cpp.default.compilerPath": "/usr/bin/gcc"
+}
