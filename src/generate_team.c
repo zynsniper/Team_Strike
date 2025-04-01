@@ -92,30 +92,25 @@ Team * generate_team(Tile game_map[10][10], bool isAI){
     }
 
     for(int i = 0; i < 4; i++){
-        // Allocate memory for each team member
         team->members[i] = malloc(sizeof(Character));
         if(team->members[i] == NULL){
             printf("Failed to allocate memory for team member %d\n", i);
-            // Free previously allocated members
+
             for(int j = 0; j < i; j++){
                 free(team->members[j]);
             }
             free(team);
             return NULL;
         }
-
         int posX, posY;
         bool positionTaken;
 
         if(isAI){
             team->teamName = "AI";
-
-            // Ensure no two characters get the same tile
             do {
                 posX = rand() % 2;  
                 posY = rand() % 10;
-                
-                // Check if any existing team member has the same position
+
                 positionTaken = false;
                 for (int j = 0; j < i; j++) {
                     if (team->members[j]->pos[0] == posX && team->members[j]->pos[1] == posY) {
@@ -144,7 +139,7 @@ Team * generate_team(Tile game_map[10][10], bool isAI){
                 posX = 8 + rand() % 2;  
                 posY = rand() % 10;
 
-                // Check if any existing team member has the same position
+                
                 positionTaken = false;
                 for (int j = 0; j < i; j++) {
                     if (team->members[j]->pos[0] == posX && team->members[j]->pos[1] == posY) {

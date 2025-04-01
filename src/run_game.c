@@ -12,6 +12,8 @@
 #include "generate_team.h"
 #include "bot_logic.h"
 #include "palace.h"
+#include "defender.h"
+
 
 int checkTeamAlive(Team* team){
     int aliveCount = 0;
@@ -104,10 +106,32 @@ int main(int argc, char ** argv){
 
         if (playerAlive == 0) {
             printf("Game Over! AI Team wins!\n");
+            for (int i = 0; i < 4; i++) {
+                free(team1->members[i]);
+                free(AI->members[i]);
+            }
+            free(team1);
+            free(AI); 
             return 0;
         }
         if (aiAlive == 0) {
             printf("Congratulations! %s Team wins!\n", team1->teamName);
+            for (int i = 0; i < 4; i++) {
+                free(team1->members[i]);
+                free(AI->members[i]);
+            }
+            free(team1);
+            free(AI);
+            return 0;
+        }
+        if(gameMap[5][5].palace->health <=0){
+            printf("Game Over! AI Team wins!\n");
+            for (int i = 0; i < 4; i++) {
+                free(team1->members[i]);
+                free(AI->members[i]);
+            }
+            free(team1);
+            free(AI);
             return 0;
         }
 
@@ -171,7 +195,7 @@ int main(int argc, char ** argv){
                         moveUp(team1, AI, gameMap, characterIndex);
                         printMap(gameMap, &palace);
                         printf("\nAI's turn...\n");
-                        advance(AI, team1, gameMap, &palace);
+                        advance(AI, team1, gameMap);
                         printMap(gameMap, &palace);
                         printf("Palace HP: %d\n", palace.health);
                         printStats(team1, AI);
@@ -181,7 +205,7 @@ int main(int argc, char ** argv){
                         moveLeft(team1, AI, gameMap, characterIndex);
                         printMap(gameMap, &palace);
                         printf("\nAI's turn...\n");
-                        advance(AI, team1, gameMap, &palace);
+                        advance(AI, team1, gameMap);
                         printMap(gameMap, &palace);
                         printf("Palace HP: %d\n", palace.health);
                         printStats(team1, AI);
@@ -191,7 +215,7 @@ int main(int argc, char ** argv){
                         moveDown(team1, AI, gameMap, characterIndex);
                         printMap(gameMap, &palace);
                         printf("\nAI's turn...\n");
-                        advance(AI, team1, gameMap, &palace);
+                        advance(AI, team1, gameMap);
                         printMap(gameMap, &palace);
                         printf("Palace HP: %d\n", palace.health);
                         printStats(team1, AI);
@@ -201,7 +225,7 @@ int main(int argc, char ** argv){
                         moveRight(team1, AI, gameMap, characterIndex);
                         printMap(gameMap, &palace);
                         printf("\nAI's turn...\n");
-                        advance(AI, team1, gameMap, &palace);
+                        advance(AI, team1, gameMap);
                         printMap(gameMap, &palace);
                         printf("Palace HP: %d\n", palace.health);
                         printStats(team1, AI);
