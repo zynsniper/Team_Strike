@@ -3,7 +3,6 @@
 #include <stdbool.h>
 #include "tile.h"
 #include "team.h"
-#include "defender.h"
 
 void attack(Character * attacker, Character * defender, Tile gameMap[10][10]){
     char attackerType = gameMap[attacker->pos[1]][attacker->pos[0]].type;
@@ -90,8 +89,8 @@ bool moveRight(Team* team, Team* enemyTeam, Tile gameMap [10][10], int character
     }
     else{
         printf("Can't move due to '%c' blocking\n", gameMap[newY][newX].type); 
-        return false;
     }
+    return false;
 }
 
 bool moveLeft(Team* team, Team* enemyTeam, Tile gameMap [10][10], int characterIndex){
@@ -136,8 +135,8 @@ bool moveLeft(Team* team, Team* enemyTeam, Tile gameMap [10][10], int characterI
     }
     else{
         printf("Can't move due to '%c' blocking\n", gameMap[newY][newX].type);    
-        return false;
     }
+    return false;
 }
 
 bool moveUp(Team* team, Team* enemyTeam, Tile gameMap [10][10], int characterIndex){
@@ -182,8 +181,8 @@ bool moveUp(Team* team, Team* enemyTeam, Tile gameMap [10][10], int characterInd
     }
     else{
         printf("Can't move due to '%c' blocking\n", gameMap[newY][newX].type); 
-        return false;
     }
+    return false;
 }
 
 bool moveDown(Team* team, Team* enemyTeam, Tile gameMap [10][10], int characterIndex){
@@ -228,6 +227,6 @@ bool moveDown(Team* team, Team* enemyTeam, Tile gameMap [10][10], int characterI
     }
     else{
         printf("Can't move due to '%c' blocking\n", gameMap[newY][newX].type);
-        return false;
     }
+    return false;
 }

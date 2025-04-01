@@ -12,8 +12,6 @@
 #include "generate_team.h"
 #include "bot_logic.h"
 #include "palace.h"
-#include "defender.h"
-
 
 int checkTeamAlive(Team* team){
     int aliveCount = 0;
