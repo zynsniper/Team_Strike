@@ -30,10 +30,9 @@ void generateMap(Tile gameMap[10][10], Palace * palace){
     gameMap[6][5].type = '8';
     gameMap[4][5].type = '8';
 
-
-    int obstacleCount = 11;
+    int obstacleCount = 10;
     int placedObstacles = 0;
-    while(placedObstacles <= obstacleCount){
+    while(placedObstacles < obstacleCount){
         int X = rand() % 10;
         int Y = rand() % 10;
 

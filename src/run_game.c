@@ -24,11 +24,28 @@ int checkTeamAlive(Team* team){
     return aliveCount;
 }
 
-void printStats(Team * player, Team * ai){
+void printAIstats(Team * AI){
+    printf("*******************\nTeam %s stats:\n", AI->teamName);
+    for(int i = 0; i < 4; i++){
+        if(AI->members[i]->health > 0){
+            printf("char#%d HP:%d AD:%d \n", i+1, AI->members[i]->health, AI->members[i]->attack);
+        }
+    }
+    printf("\n");
+}
+
+void printPlayerStats(Team * player){
     printf("*******************\nTeam %s stats:\n", player->teamName);
     for(int i = 0; i < 4; i++){
         if(player->members[i]->health > 0){
-            printf("char#%d HP:%d AD:%d \n", i+1, player->members[i]->health, player->members[i]->attack);
+            printf("char#%d HP:%d AD:%d ", i+1, player->members[i]->health, player->members[i]->attack);
+
+            if(player->members[i]->berserker){
+                printf("[Berserker]\n");
+            }
+            else{
+                printf("[Bulldozer]\n");
+            }
         }
     }
     printf("\n");
@@ -91,9 +108,7 @@ int main(int argc, char ** argv){
         strcpy(team1->teamName, Name);
 
         printf("Generating Characters for <Team %s>\n", team1->teamName);
-        for(int i = 0; i < 4; i++){
-            printf("HP: %d AD: %d\n", team1->members[i]->health, team1->members[i]->attack);
-        }
+        printPlayerStats(team1);
     }
 
     printMap(gameMap, &palace);
@@ -181,7 +196,7 @@ int main(int argc, char ** argv){
                     continue;
                 }
 
-                printf("Now enter a command {w, a, s, d to move}: ");
+                printf("Now enter a command {w, a, s, d to move} or {x to skip}: ");
                 scanf(" %c", &userInput[0]);
 
                 if(userInput[0] == 'q'){
@@ -194,41 +209,55 @@ int main(int argc, char ** argv){
                     case 'w':
                         moveUp(team1, AI, gameMap, characterIndex);
                         printMap(gameMap, &palace);
+                        printAIstats(AI);
                         printf("\nAI's turn...\n");
                         advance(AI, team1, gameMap);
                         printMap(gameMap, &palace);
                         printf("Palace HP: %d\n", palace.health);
-                        printStats(team1, AI);
+                        printPlayerStats(team1);
                         break;
 
                     case 'a':
                         moveLeft(team1, AI, gameMap, characterIndex);
                         printMap(gameMap, &palace);
+                        printAIstats(AI);
                         printf("\nAI's turn...\n");
                         advance(AI, team1, gameMap);
                         printMap(gameMap, &palace);
                         printf("Palace HP: %d\n", palace.health);
-                        printStats(team1, AI);
+                        printPlayerStats(team1);
                         break;
                         
                     case 's':
                         moveDown(team1, AI, gameMap, characterIndex);
                         printMap(gameMap, &palace);
+                        printAIstats(AI);
                         printf("\nAI's turn...\n");
                         advance(AI, team1, gameMap);
                         printMap(gameMap, &palace);
                         printf("Palace HP: %d\n", palace.health);
-                        printStats(team1, AI);
+                        printPlayerStats(team1);
                         break;
 
                     case 'd':
                         moveRight(team1, AI, gameMap, characterIndex);
                         printMap(gameMap, &palace);
+                        printAIstats(AI);
                         printf("\nAI's turn...\n");
                         advance(AI, team1, gameMap);
                         printMap(gameMap, &palace);
                         printf("Palace HP: %d\n", palace.health);
-                        printStats(team1, AI);
+                        printPlayerStats(team1);
+                        break;
+
+                    case 'x':
+                        printf("Skipping player turn\n");
+                        printf("***************************************************************\n");
+                        printf("\nAI's turn...\n");
+                        advance(AI, team1, gameMap);
+                        printMap(gameMap, &palace);
+                        printf("Palace HP: %d\n", palace.health);
+                        printPlayerStats(team1);
                         break;
 
                     default:
