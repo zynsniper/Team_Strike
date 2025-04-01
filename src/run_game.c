@@ -12,6 +12,8 @@
 #include "generate_team.h"
 #include "bot_logic.h"
 #include "palace.h"
+#include "defender.h"
+
 
 int checkTeamAlive(Team* team){
     int aliveCount = 0;
@@ -119,10 +121,32 @@ int main(int argc, char ** argv){
 
         if (playerAlive == 0) {
             printf("Game Over! AI Team wins!\n");
+            for (int i = 0; i < 4; i++) {
+                free(team1->members[i]);
+                free(AI->members[i]);
+            }
+            free(team1);
+            free(AI); 
             return 0;
         }
         if (aiAlive == 0) {
             printf("Congratulations! %s Team wins!\n", team1->teamName);
+            for (int i = 0; i < 4; i++) {
+                free(team1->members[i]);
+                free(AI->members[i]);
+            }
+            free(team1);
+            free(AI);
+            return 0;
+        }
+        if(gameMap[5][5].palace->health <=0){
+            printf("Game Over! AI Team wins!\n");
+            for (int i = 0; i < 4; i++) {
+                free(team1->members[i]);
+                free(AI->members[i]);
+            }
+            free(team1);
+            free(AI);
             return 0;
         }
 

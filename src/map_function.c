@@ -26,6 +26,9 @@ void generateMap(Tile gameMap[10][10], Palace * palace){
 
     //Placing Palace in center
     gameMap[palace->pos[0]][palace->pos[1]].type = 'P';
+    gameMap[5][5].palace = palace;
+    gameMap[6][5].type = '8';
+    gameMap[4][5].type = '8';
 
     int obstacleCount = 10;
     int placedObstacles = 0;
@@ -33,7 +36,7 @@ void generateMap(Tile gameMap[10][10], Palace * palace){
         int X = rand() % 10;
         int Y = rand() % 10;
 
-        if(gameMap[X][Y].type == '.' && gameMap[X][Y].type != 'P'){
+        if(gameMap[X][Y].type == '.' && gameMap[X][Y].type != 'P' && gameMap[X][Y].type != '8'){
             gameMap[X][Y].type = 'O';
             placedObstacles++;
         }

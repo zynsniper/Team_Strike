@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include "defender.h"
+
+void initDefender(Defender ** defHead, int health, int x, int y){
+    Defender * newDef = malloc(sizeof(Defender));
+    if(!newDef){
+        printf("Defender Memory allocation Fail");
+    }
+    newDef->health = health;
+    newDef->pos[0] = x;
+    newDef->pos[1] =y;
+    newDef->next =NULL;
+
+    if (*defHead == NULL) {
+        *defHead = newDef;
+    } else {
+        Defender* temp = *defHead;
+        while (temp->next != NULL) {
+            temp = temp->next;  
+        }
+        temp->next = newDef; 
+    }
+}
+bool removeDefender(Defender ** defHead, Defender* target){
+    if (*defHead == NULL || target == NULL) {
+        return false; 
+    }
+    Defender* current = *defHead;
+    Defender* previous = NULL;
+
+    if (current == target) {
+        *defHead = current->next;
+        free(current);
+        return true;
+    }
+    while (current != NULL && current != target) {
+        previous = current;
+        current = current->next;
+    }
+    if (current == NULL) {
+        return false;
+    }
+    previous->next = current->next;
+    free(current);
+    return true;
+}
