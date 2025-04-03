@@ -38,7 +38,6 @@ int attack_palace(Palace* palace, Character * attacker){
     palace->health -= attacker->attack;
     if(palace->health <=0){
         printf("\n*********************PALACE DESTROYED! GAME OVER!****************************\n");
-        free(palace);
         return 1;
     }
     return 0;

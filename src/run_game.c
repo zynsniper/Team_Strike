@@ -161,6 +161,7 @@ int main(int argc, char ** argv){
                     free(team1->members[i]);
                     free(AI->members[i]);
                 }
+                free(team1->teamName);
                 free(team1);
                 free(AI);                         
                 return 0;
